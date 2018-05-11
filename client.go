@@ -142,7 +142,8 @@ func (c *Client) execute(method string, urlStr string, text string) (interface{}
 	var result interface{}
 	err = json.Unmarshal(resBodyBytes, &result)
 	if err != nil {
-		return nil, err
+		log.Printf("Can't parse as json: ^^^%s^^^", err)
+		return string(resBodyBytes), nil
 	}
 
 	resultMap, isMap := result.(map[string]interface{})

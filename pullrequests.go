@@ -2,9 +2,8 @@ package bitbucket
 
 import (
 	"encoding/json"
-	"os"
-
 	"github.com/k0kubun/pp"
+	"os"
 )
 
 type PullRequests struct {
@@ -78,6 +77,12 @@ func (p *PullRequests) GetComments(po *PullRequestsOptions) (interface{}, error)
 func (p *PullRequests) GetComment(po *PullRequestsOptions) (interface{}, error) {
 	urlStr := GetApiBaseURL() + "/repositories/" + po.Owner + "/" + po.Repo_slug + "/pullrequests/" + po.Id + "/comments/" + po.Comment_id
 	return p.c.execute("GET", urlStr, "")
+}
+
+func (p *PullRequests) CreateComment(po *PullRequestsOptions) (interface{}, error) {
+	data := `{"content":"` + po.Comment_text + `"}`
+	urlStr := "https://api.bitbucket.org/1.0" + "/repositories/" + po.Owner + "/" + po.Repo_slug + "/pullrequests/" + po.Id + "/comments"
+	return p.c.execute("POST", urlStr, data)
 }
 
 func (p *PullRequests) buildPullRequestBody(po *PullRequestsOptions) string {

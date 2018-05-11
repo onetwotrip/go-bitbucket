@@ -113,6 +113,7 @@ type RepositoryOptions struct {
 type PullRequestsOptions struct {
 	Id                  string   `json:"id"`
 	Comment_id          string   `json:"comment_id"`
+	Comment_text        string   `json:"comment_text"`
 	Owner               string   `json:"owner"`
 	Repo_slug           string   `json:"repo_slug"`
 	Title               string   `json:"title"`
