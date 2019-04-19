@@ -47,6 +47,11 @@ func (r *Repository) Get(ro *RepositoryOptions) (*Repository, error) {
 	return decodeRepository(response)
 }
 
+func (r *Repository) GetFile(ro *RepositoryOptions) (interface{}, error) {
+	urlStr := r.c.requestUrl("/repositories/%s/%s/src/master/%s", ro.Owner, ro.Repo_slug, ro.File)
+	return r.c.execute("GET", urlStr, "")
+}
+
 func (r *Repository) Delete(ro *RepositoryOptions) (interface{}, error) {
 	urlStr := r.c.requestUrl("/repositories/%s/%s", ro.Owner, ro.Repo_slug)
 	return r.c.execute("DELETE", urlStr, "")
